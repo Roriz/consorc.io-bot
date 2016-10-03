@@ -1,0 +1,11 @@
+{
+  "token": "253651900:AAEOhB1RZaTlf9rZSoBTv5ZNrq-9tesNVLg",
+  "url": "https://api.telegram.org/bot",
+  "controller_folder": "controllers",
+  "mongo": {
+    "url": "mongodb://localhost:27017/consorcio"
+  },
+  "i18n": {
+    "folder": "i18n"
+  }
+}

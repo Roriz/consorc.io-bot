@@ -1,0 +1,13 @@
+{
+  "start.success": "All players can vote for this start! For now you have 1/%s",
+  "start.fail": "Already have a started process.",
+  "start.canceled": "Start has been canceled.",
+
+
+
+  "confirm.vote_has_ending": "Already have more than half.",
+  "confirm.current_state": "Current we have %s/%s",
+  "confirm.validate.fail": "Don't have any active syndicate.",
+  "confirm.success.remove_option": "Success remove a option %s.",
+  "confirm.success.new_option": "Success add a new option"
+}

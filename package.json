@@ -1,0 +1,29 @@
+{
+  "name": "consorc.io-bot",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "i18n": "^0.8.3",
+    "lodash": "^4.16.2",
+    "mongodb": "^2.2.10",
+    "node-telegram-bot-api-latest": "^0.2.1",
+    "path": "^0.12.7"
+  },
+  "description": "",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roriz/consorc.io-bot.git"
+  },
+  "author": "Roriz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Roriz/consorc.io-bot/issues"
+  },
+  "homepage": "https://github.com/Roriz/consorc.io-bot#readme"
+}
