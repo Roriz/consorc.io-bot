@@ -1,9 +1,9 @@
-const _ = require('lodash');
 const path = require('path');
 const assert = require('assert');
-const fs = require('fs');
 
-module.exports = (SharedMethods, collections, bot, runAnotherClass, catalog) => {
+module.exports = (bot, i18n) => {
+  const SharedMethods = require(path.resolve(__dirname + '/shared-methods.js'))(bot, i18n);
+
   return class StartController extends SharedMethods {
 
     get images() {
@@ -21,65 +21,58 @@ module.exports = (SharedMethods, collections, bot, runAnotherClass, catalog) => 
       return this.images[parseInt(pos)]
     }
 
-    valid(callback) {
+    newRequest(mgs, collections) {
+      const self = this;
+      var message = new Message(mgs);
+
+      self.valid(message, collections, function (err) {
+
+        self.getMembers(message.chat, function (count) {
+
+          bot.sendDocument(message.chat.id, self.first_image()).then(() => {
+            console.log("#start_true Chat:" + message.chat.id + '; User:' + message.user.id);
+            bot.sendMessage(message.chat.id, catalog.t('start.success', count));
+          });
+
+        });
+
+        collections.starters.insert({
+          chat: message.chat,
+          joins: [message.user]
+        }, (err, result) => {
+          assert.equal(null, err);
+
+          console.log("#start_db Chat:" + message.chat.id + '; User:' + message.user.id);
+        });
+
+      });
+
+    }
+
+    valid(message, collections, callback) {
       const self = this;
 
       collections.starters.findOne({
-        "chat.id": self.chat.id
+        "chat.id": message.chat.id
       }, (err, starters) => {
+        assert.equal(null, err);
+
         collections.syndicate.findOne({
-          "chat.id": self.chat.id
+          "chat.id": message.chat.id
         }, (err, syndicate) => {
-          callback(syndicate ? true : (starters ? true : false));
+          assert.equal(null, err);
+
+          if (syndicate || starters) {
+            console.log("#start_false Chat:" + message.chat.id + '; User:' + message.user.id);
+            bot.sendMessage(message.chat.id, catalog.t('start.fail'));
+
+          } else {
+            callback();
+          }
         });
       });
     }
 
-    render() {
-      const self = this;
-
-      self.valid(function (err) {
-        if (err) {
-          console.log("#start_false Chat:" + self.chat.id + '; User:' + self.user.id);
-          bot.sendMessage(self.chat.id, catalog.t('start.fail'));
-        } else {
-          bot.getChatMembersCount(self.chat.id).then((count) => {
-            count = count - 1;
-
-            const image = self.first_image();
-
-            bot.sendDocument(self.chat.id, image).then(() => {
-              console.log("#start_true Chat:" + self.chat.id + '; User:' + self.user.id);
-              bot.sendMessage(self.chat.id, catalog.t('start.success', count));
-            });
-
-          });
-
-          collections.starters.insert({
-            chat: self.chat,
-            joins: [self.user]
-          }, (err, result) => {
-            assert.equal(null, err);
-
-            console.log("#start_db Chat:" + self.chat.id + '; User:' + self.user.id);
-          });
-        }
-      });
-
-    }
-
-    cancel() {
-      const self = this;
-
-      collections.starters.remove({
-        "chat.id": self.chat.id
-      }, (err, result) => {
-        assert.equal(null, err);
-
-        console.log("#start_cancel Chat:" + self.chat.id);
-        bot.sendMessage(self.chat.id, catalog.t('start.canceled'));
-      });
-    }
 
   }
 

@@ -3,11 +3,13 @@
   "start.fail": "Already have a started process.",
   "start.canceled": "Start has been canceled.",
 
-
-
-  "confirm.vote_has_ending": "Already have more than half.",
+  "confirm.has_two_of_three": "Already have more than 2/3.",
   "confirm.current_state": "Current we have %s/%s",
+  "confirm.validate.user": "You already enter on this vote.",
   "confirm.validate.fail": "Don't have any active syndicate.",
+  "confirm.fail.vote": "%s disapruve this votation.",
+  "confirm.success.vote": "Congratz %s approve this start.",
   "confirm.success.remove_option": "Success remove a option %s.",
+  "confirm.success.approved": "What store will be choose? You can use /store NewStore to add new option.",
   "confirm.success.new_option": "Success add a new option"
 }

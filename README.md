@@ -1,13 +1,12 @@
 # consorc.io
-Is a bot to assist and manage any syndicate. The syndicate has 6 formal steps:
 
+Is a bot to assist and manage any syndicate. The syndicate has 6 formal steps:
 * Start
 * Approval for 2/3 or Disprove for any one.
 * List stores
 * Vote stores
 * List payings
 * Send report
-
 
 
 # Pedent List
@@ -23,3 +22,5 @@ Is a bot to assist and manage any syndicate. The syndicate has 6 formal steps:
 * Apply method to listen all response request.
 * List payings.
 * Send report.
+* Better Gifs with size reasonable.
+* Remove a lot sequencial menssages sending for chat.

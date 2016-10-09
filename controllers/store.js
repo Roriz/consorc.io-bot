@@ -2,7 +2,9 @@ const _ = require('lodash');
 const path = require('path');
 const assert = require('assert');
 
-module.exports = (SharedMethods, collections, bot, runAnotherClass) => {
+module.exports = (bot, i18n) => {
+  const SharedMethods = require(path.resolve(__dirname + '/shared-methods.js'))(bot, i18n);
+
   return class StoreController extends SharedMethods {
 
     validate(callback) {
