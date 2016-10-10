@@ -1,4 +1,9 @@
 {
 	"confirm.current_state": "confirm.current_state",
-	"start.success": "start.success"
+	"start.success": "start.success",
+	"start.fail": "start.fail",
+	"cancel.success": "cancel.success",
+	"cancel.fail": "cancel.fail",
+	"vote.start": "vote.start",
+	"vote.statitics": "vote.statitics"
 }

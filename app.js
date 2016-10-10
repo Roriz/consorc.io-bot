@@ -54,23 +54,27 @@ class Server {
     });
   };
 
-  loadFiles(folder, files, needArgs) {
+  loadFiles(folder, files, started) {
     const self = this;
 
     _.each(files, (file) => {
       if (file) {
         var controller = require(self.pathTo(file, folder))(bot, i18n);
 
-        global[controller.name] = controller;
+        if (started) {
+          global[controller.name] = new controller();
+        } else {
+          global[controller.name] = controller;
+        }
       }
     });
   };
 
-  load(name, needArgs, callback) {
+  load(name, started, callback) {
     const self = this;
 
     self.loadFolder(name, (files) => {
-      self.loadFiles(name, files, needArgs);
+      self.loadFiles(name, files, started);
       console.log('Load all ' + name);
 
       callback();

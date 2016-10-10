@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const _ = require('lodash');
 
 module.exports = (bot, i18n) => {
   return class Application {
@@ -12,9 +13,9 @@ module.exports = (bot, i18n) => {
 
     get routes() {
       return {
-        'start': 'StartController',
-        'confirm': 'ConfirmController',
-        'store': 'StoreController'
+        '/start': 'StartController#newRequest',
+        '/vote': 'VoteController#newRequest',
+        '/cancel': 'CancelController#newRequest'
       }
     }
 
@@ -60,11 +61,34 @@ module.exports = (bot, i18n) => {
     setRoutes() {
       const self = this;
 
-      // Any kind of message
-      self.bot.on('message', (msg) => {
-        Alkdfjglkdfjgkldfjlk.newRequest(msg, self.collections)
+      self.bot.on('callback_query', (msg) => {
+        var callback = new Callback(msg);
+
+        self.compareRoutes(callback.text, callback);
       });
 
+      self.bot.on('message', (msg) => {
+        var message = new Message(msg);
+
+        self.compareRoutes(message.text, message);
+      });
+
+    }
+
+    compareRoutes(text, data) {
+      const self = this;
+
+      _.each(self.routes, function (route, key) {
+        var regex = new RegExp(key + /\s+.*/.source, 'i');
+        var route = route.split('#');
+        const className = route[0];
+        const methodName = route[1];
+
+        if (regex.test(text) || key == text) {
+          global[className][methodName](data, self.collections)
+        }
+
+      });
     }
 
   }

@@ -1,15 +1,10 @@
 {
-  "start.success": "All players can vote for this start! For now you have 1/%s",
+  "start.success": "All players can vote for this start!",
   "start.fail": "Already have a started process.",
   "start.canceled": "Start has been canceled.",
-
-  "confirm.has_two_of_three": "Already have more than 2/3.",
-  "confirm.current_state": "Current we have %s/%s",
-  "confirm.validate.user": "You already enter on this vote.",
-  "confirm.validate.fail": "Don't have any active syndicate.",
-  "confirm.fail.vote": "%s disapruve this votation.",
-  "confirm.success.vote": "Congratz %s approve this start.",
-  "confirm.success.remove_option": "Success remove a option %s.",
-  "confirm.success.approved": "What store will be choose? You can use /store NewStore to add new option.",
-  "confirm.success.new_option": "Success add a new option"
+  "cancel.success": "Removed all process current runing.",
+  "cancel.fail": "Not have any process on this chat.",
+  "vote.start": "Better late than never. The voting begins!",
+  "vote.statitics": "%s/%s",
+  "vote.fail": "Don't have any active syndicate."
 }

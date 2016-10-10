@@ -7,10 +7,11 @@ module.exports = (bot, i18n) => {
 
   return class Message {
     constructor(msg) {
-      this.msg = msg;
-
-      this.user = new User(_.get(this, 'msg.from'));
-      this.chat = new Chat(_.get(this, 'msg.from'));
+      this.user = new User(_.get(msg, 'from'));
+      this.chat = new Chat(_.get(msg, 'from'));
+      this.text = _.get(msg, 'text');
+      this.date = _.get(msg, 'date');
+      this.id = _.get(msg, 'message_id');
     }
   }
 }

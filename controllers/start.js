@@ -21,24 +21,20 @@ module.exports = (bot, i18n) => {
       return this.images[parseInt(pos)]
     }
 
-    newRequest(mgs, collections) {
+    newRequest(message, collections) {
       const self = this;
-      var message = new Message(mgs);
 
-      self.valid(message, collections, function (err) {
+      self.valid(message, collections, function () {
 
-        self.getMembers(message.chat, function (count) {
+        bot.sendDocument(message.chat.id, self.first_image()).then(() => {
 
-          bot.sendDocument(message.chat.id, self.first_image()).then(() => {
-            console.log("#start_true Chat:" + message.chat.id + '; User:' + message.user.id);
-            bot.sendMessage(message.chat.id, catalog.t('start.success', count));
-          });
-
+          console.log("#start_true Chat:" + message.chat.id + '; User:' + message.user.id);
+          global['VoteController'].start(message, collections);
         });
 
         collections.starters.insert({
           chat: message.chat,
-          joins: [message.user]
+          joins: []
         }, (err, result) => {
           assert.equal(null, err);
 
@@ -64,7 +60,7 @@ module.exports = (bot, i18n) => {
 
           if (syndicate || starters) {
             console.log("#start_false Chat:" + message.chat.id + '; User:' + message.user.id);
-            bot.sendMessage(message.chat.id, catalog.t('start.fail'));
+            bot.sendMessage(message.chat.id, i18n.__('start.fail'));
 
           } else {
             callback();
@@ -72,7 +68,6 @@ module.exports = (bot, i18n) => {
         });
       });
     }
-
 
   }
 
